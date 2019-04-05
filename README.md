@@ -68,3 +68,7 @@ VALUES
 ```
 SELECT SUM(likes) FROM products;
 ```
+
+## Technology Stack
+
+This sample app uses MySQL to store data, Express.js as the middleware to handle HTTP requests and routing, Vue.js as the client-side JavaScript to render data and Node.js as the server for the app to run on.

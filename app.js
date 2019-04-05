@@ -1,10 +1,21 @@
+// express to create the API
 const express = require('express');
+// cors allows client to talk to the frontend
+const cors = require('cors') 
+// morgan to log http request to the console
+const morgan = require('morgan')
+// bodyparser allows the backend to read data sent from frontend
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
-const app = express();
 
+const app = express();
 const port = 5000;
+
+// configure middilewares
+app.use(morgan('tiny'));
+app.use(cors());
+app.use(bodyParser.json());
 
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
@@ -12,7 +23,7 @@ const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'connectcollege'
+    database: 'sample_app'
 });
 
 // connect to database
@@ -22,15 +33,12 @@ db.connect((err) => {
     }
     console.log('Connected to database');
 });
-global.db = db;
 
-// configure middleware
-app.set('port', process.env.port || port); // set express to use this port
-app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
-app.set('view engine', 'ejs'); // configure template engine
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // parse form data client
-app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+global.db = db;
 
 // routes for the app
 /*
