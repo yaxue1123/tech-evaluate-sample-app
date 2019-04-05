@@ -13,7 +13,7 @@ export default new Router({
       component: ProductList
     }, 
     {
-      path: '/item/:id',
+      path: '/item',
       name: 'Item',
       component: Item
     }

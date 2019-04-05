@@ -1,12 +1,16 @@
 <template>
-  <div class="hello">
+  <div class="product-list">
     <h1>{{ msg }}</h1>
     <ul>
       <li v-for="product in products">
-        <span> <img :src="product.product_photo"> </span>
+        <span> 
+          <img :src="product.product_photo"> 
+        </span>
         <span> {{product.title}} </span>
         <span class="price"> ${{product.price}} </span>
-        <button @click="show_item(product)" class="view-btn">View</button>
+        <button>
+          <router-link :to="{path: '/item',query: product}">View</router-link>
+        </button>
       </li>
     </ul>
   </div>
@@ -14,7 +18,7 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'product-list',
   data () {
     return {
       msg: 'Product list',
@@ -25,7 +29,7 @@ export default {
               "description": "This premier sport shirt is made from a unique performance fabric that offers stretch for optimum mobility and ideal comfort on the course or around town. The innovative fabric construction allows for exceptional breathability and moisture management that keeps the garment fresh throughout wear. Styled with a button down collar, French placket, left chest pocket and double button barrel cuffs. 94% nylon 6% spandex sport shirt. Imported.",
               "product_photo": "../static/img/products/product_1.jpg",
               "price": 152.98,
-              "likes": 0
+              "likes": 5
           },
           {
               "id": 2,
@@ -63,15 +67,13 @@ export default {
     }
   },
   methods: {
-    show_item(product) {
-      alert(product.title)
-    }
+   
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 h1, h2 {
   font-weight: normal;
 }
@@ -94,6 +96,7 @@ li {
 
 a {
   color: #35495E;
+  text-decoration: none;
 }
 
 img {
@@ -105,7 +108,7 @@ button {
   margin: .5em;
 }
 
-.hello {
+.product-list {
   margin-left: 20%;
   margin-right: 20%;
   width: 60%;
