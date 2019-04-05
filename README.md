@@ -71,4 +71,4 @@ SELECT SUM(likes) FROM products;
 
 ## Technology Stack
 
-This sample app uses MySQL to store data, Express.js as the middleware to handle HTTP requests and routing, Vue.js as the client-side JavaScript to render data and Node.js as the server for the app to run on.
+This sample app uses MySQL to store data, Express.js as the middleware to handle HTTP requests and routing, Vue.js as the client-side JavaScript to render data and Node.js as the server for the app to run on. Also, Axios is a Promise based based HTTP client that I use it to make HTTP calls from Vue front-end application to the Express.js REST API backend running on http://localhost:3000 with CORS enabled.

@@ -13,6 +13,14 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// enable cors on express.js
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
@@ -30,27 +38,35 @@ db.connect((err) => {
     console.log('Connected to database');
 });
 
-// app.get('/', (req, res) => {
-//     res.send('Hello World!');
-// });
-
-// visit vue single page.
-app.get('*', function(req, res) {
-    var html = html = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
-    res.send(html);
+app.get('/', (req, res) => {
+    res.send('Hello World!');
 });
 
-global.db = db;
+app.get('/api/products', (req, res) => {
+    let sql = "SELECT * FROM products";
+    db.query(sql, function (err, result) {
+        if (err) {
+            throw err
+        };
+        res.send(result);
+    });
+});
 
-// routes for the app
-/*
-app.get('/', getHomePage);
-app.get('/add', addPlayerPage);
-app.get('/edit/:id', editPlayerPage);
-app.get('/delete/:id', deletePlayer);
-app.post('/add', addPlayer);
-app.post('/edit/:id', editPlayer);
-*/
+app.get('/api/products/:id', (req, res) => {
+    let sql = "SELECT * FROM products WHERE id = " + req.params.id;
+    db.query(sql, function (err, result) {
+        if (err) {
+            throw err
+        };
+        res.send(result);
+    });
+});
+
+// visit vue single page.
+// app.get('*', function(req, res) {
+//     var html = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
+//     res.send(html);
+// });
 
 // set the app to listen on the port
 app.listen(port, () => {
